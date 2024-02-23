@@ -30,6 +30,29 @@ Flight::route("POST /servicio", function(){
 
 });
 
+Flight::route("PUT /servicio/@id:[0-9]+", function($id){
+
+    $data = Flight::request()->data;
+    $nombre = $data['nombre'];
+    $descripcion = $data['descripcion'];
+
+    $servicio = DB::executeQuery("SELECT * FROM arqui_servicio WHERE nombre = ?", [$nombre]);
+    if(count($servicio) > 0){
+        $servicio = array_shift($servicio);
+        if($servicio->id !== $id){
+            $response = ArrestDB::$HTTP[400];
+            $response['message'] = "El servicio $nombre ya existe";
+            return Flight::json($response, 400);
+        }
+    }
+
+    DB::executeQuery("UPDATE arqui_servicio SET nombre = ?, descripcion = ? WHERE id = ?", [$nombre, $descripcion, $id]);
+
+    $response = ArrestDB::$HTTP[200];
+    return Flight::json($response, 200);
+
+});
+
 Flight::route("DELETE /servicio/@id:[0-9]+", function($id){
 
     DB::executeQuery("DELETE FROM arqui_servicio WHERE id = ?", [$id]);
