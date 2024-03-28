@@ -46,30 +46,6 @@ Flight::route("POST /proyecto", function(){
 
 });
 
-Flight::route("PUT /proyecto/@id:[0-9]+", function($id){
-
-    $data = Flight::request()->data;
-    $nombre = $data['nombre'];
-    $descripcion = $data['descripcion'];
-    $fotos = $data['fotos'];
-
-    $proyecto = DB::executeQuery("SELECT * FROM arqui_proyecto WHERE nombre = ?", [$nombre]);
-    if(count($proyecto) > 0){
-        $proyecto = array_shift($proyecto);
-        if($proyecto->id !== $id){
-            $response = ArrestDB::$HTTP[400];
-            $response['message'] = "El proyecto $nombre ya existe";
-            return Flight::json($response, 400);
-        }
-    }
-
-    DB::executeQuery("UPDATE arqui_proyecto SET nombre = ?, descripcion = ?, fotos = ? WHERE id = ?", [$nombre, $descripcion, $fotos, $id]);
-
-    $response = ArrestDB::$HTTP[200];
-    return Flight::json($response, 200);
-
-});
-
 Flight::route("DELETE /proyecto/@id:[0-9]+", function($id){
 
     DB::executeQuery("DELETE FROM arqui_proyecto WHERE id = ?", [$id]);
