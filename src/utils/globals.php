@@ -1,3 +1,3 @@
 <?php
 
-Flight::set('public', ['/login', '/servicios', '/proyectos']);
+Flight::set('public', ['/login', '/servicios', '/proyectos', '/web']);

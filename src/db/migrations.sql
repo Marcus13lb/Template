@@ -13,3 +13,8 @@ CREATE TABLE arqui_proyecto (
 	fotos TEXT DEFAULT NULL, 
 	fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE arqui_conf (
+	clave TEXT UNIQUE NOT NULL,
+	valor TEXT NOT NULL
+);

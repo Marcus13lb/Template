@@ -6,9 +6,9 @@ class JWT {
 
 		$headers = getallheaders();
 		
-        if (isset($headers['x-auth-token'])) {
+        if (isset($headers['X-Auth-Token'])) {
 		
-			$token = str_replace("Bearer ", "", $headers['x-auth-token']);
+			$token = str_replace("Bearer ", "", $headers['X-Auth-Token']);
 			if(!JWT::ValidarJWT($token)){
 				die(Flight::json(ArrestDB::$HTTP[401], 401));
 			}
