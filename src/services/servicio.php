@@ -15,6 +15,7 @@ Flight::route("POST /servicio", function(){
     $data = Flight::request()->data;
     $nombre = $data['nombre'];
     $descripcion = $data['descripcion'];
+    $icono = $data['icono'];
 
     $servicio = DB::executeQuery("SELECT * FROM arqui_servicio WHERE nombre = ?", [$nombre]);
     if(count($servicio) > 0){
@@ -23,7 +24,7 @@ Flight::route("POST /servicio", function(){
         return Flight::json($response, 400);
     }
 
-    DB::executeQuery("INSERT INTO arqui_servicio (nombre, descripcion) VALUES(?,?)", [$nombre, $descripcion]);
+    DB::executeQuery("INSERT INTO arqui_servicio (nombre, descripcion, icono) VALUES(?,?,?)", [$nombre, $descripcion, $icono]);
 
     $response = ArrestDB::$HTTP[200];
     return Flight::json($response, 200);
@@ -35,6 +36,7 @@ Flight::route("PUT /servicio/@id:[0-9]+", function($id){
     $data = Flight::request()->data;
     $nombre = $data['nombre'];
     $descripcion = $data['descripcion'];
+    $icono = $data['icono'];
 
     $servicio = DB::executeQuery("SELECT * FROM arqui_servicio WHERE nombre = ?", [$nombre]);
     if(count($servicio) > 0){
@@ -46,7 +48,7 @@ Flight::route("PUT /servicio/@id:[0-9]+", function($id){
         }
     }
 
-    DB::executeQuery("UPDATE arqui_servicio SET nombre = ?, descripcion = ? WHERE id = ?", [$nombre, $descripcion, $id]);
+    DB::executeQuery("UPDATE arqui_servicio SET nombre = ?, descripcion = ?, icono = ? WHERE id = ?", [$nombre, $descripcion, $icono, $id]);
 
     $response = ArrestDB::$HTTP[200];
     return Flight::json($response, 200);
