@@ -13,7 +13,7 @@ Flight::route("GET /web", function(){
 Flight::route("POST /web", function(){
     
     $data = Flight::request()->data;
-    $campos = ['slogan', 'services_description', 'projects_description', 'facebook', 'instagram', 'telefono', 'email', 'ubicacion_url', 'direccion', 'sobre_nosotros'];
+    $campos = ['app', 'slogan', 'services_description', 'projects_description', 'facebook', 'instagram', 'telefono', 'email', 'ubicacion_url', 'direccion', 'sobre_nosotros'];
 
     foreach($campos as $campo){
         if(empty($data[$campo])){
@@ -26,8 +26,6 @@ Flight::route("POST /web", function(){
     foreach($campos as $campo){
         DB::executeQuery("DELETE FROM arqui_conf WHERE clave = ?", [$campo]);
         DB::executeQuery("INSERT INTO arqui_conf (clave, valor) VALUES (?,?)", [$campo, $data[$campo]]);
-        // var_dump($campo, $data[$campo]);
-        // die();
     }
 
     $response = ArrestDB::$HTTP[200];
