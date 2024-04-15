@@ -13,7 +13,7 @@ Flight::route("GET /web", function(){
 Flight::route("POST /web", function(){
     
     $data = Flight::request()->data;
-    $campos = ['app', 'slogan', 'services_description', 'projects_description', 'facebook', 'instagram', 'telefono', 'email', 'ubicacion_url', 'direccion', 'sobre_nosotros'];
+    $campos = ['app', 'slogan', 'services_description', 'projects_description', 'facebook', 'instagram', 'telefono', 'telefono2', 'email', 'email2', 'ubicacion_url', 'direccion', 'sobre_nosotros'];
 
     foreach($campos as $campo){
         if(empty($data[$campo])){
